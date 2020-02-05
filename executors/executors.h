@@ -13,7 +13,8 @@
 
 enum class TaskStatus;
 
-class Task : public std::enable_shared_from_this<Task> {
+class Task : public std::enable_shared_from_this<Task> 
+{
 public:
     virtual ~Task() {}
 
@@ -82,7 +83,8 @@ struct Unit {};
 
 
 
-class Executor {
+class Executor 
+{
 public:
     virtual ~Executor() {}
 
@@ -108,9 +110,10 @@ public:
                                                     std::chrono::system_clock::time_point deadline);
 };
 
-class MyExecutor : public Executor {
+class MyExecutor : public Executor 
+{
     template<typename U> friend
-    class ts_queue;
+    class queue_guard;
 
 public:
     explicit MyExecutor(int num_threads);
@@ -126,7 +129,8 @@ public:
 private:
     void kernel();
 
-    enum class ExecutorStatus {
+    enum class ExecutorStatus 
+    {
         Processing,
         StartShutdown,
         WaitShutdown,
@@ -148,7 +152,8 @@ private:
 std::shared_ptr<Executor> MakeThreadPoolExecutor(int num_threads);
 
 template<class T>
-class Future : public Task {
+class Future : public Task 
+{
 public:
     explicit Future(std::function<T()>);
     T get();
