@@ -4,32 +4,62 @@
 //Task
 bool Task::isCompleted()
 {
-    return (status == TaskStatus::Completed);
+    if(status == TaskStatus::Completed)
+    {
+        return true;
+    }
+ 
+    return false;
 }
 
 bool Task::isFailed()
 {
-    return (status == TaskStatus::Failed);
+    if(status == TaskStatus::Failed)
+    {
+        return true;
+    }
+    
+    return false;
 }
 
 bool Task::isCanceled()
 {
-    return (isCompleted() || isFailed() || isCanceled());
+    if(isCompleted() || isFailed() || isCanceled())
+    {
+        return true;
+    }
+    
+    return false;
 }
 
 bool Task::isFinished()
 {
-    return(isCompleted() || isFailed() || isCanceled());
+    if(isCompleted() || isFailed() || isCanceled())
+    {
+        return true;
+    }
+    
+    return false;
 }
 
 bool Task::isProcessing()
 {
-    return (status == TaskStatus::Processing);
+    if(status == TaskStatus::Processing)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 bool Task::isAwaiting()
 {
-    return (status == TaskStatus::Awaiting);
+    if(status == TaskStatus::Awaiting)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 std::exception_ptr Task::getError()
@@ -116,8 +146,11 @@ void MyExecutor::kernel()
             }
         }
 
-        if (!task) task = queue_tasks.pop();
-
+        if (!task) 
+        {
+            task = queue_tasks.pop();
+        }
+        
         if (task) 
         {
             if (task->status == Task::TaskStatus::Awaiting) {
